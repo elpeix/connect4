@@ -1,0 +1,41 @@
+{
+  "name": "connect4",
+  "version": "1.0.0",
+  "description": "Connect 4 game",
+  "main": "index.js",
+  "bin": {
+    "encapsulate": "bin/encapsulate.js"
+  },
+  "scripts": {
+    "start": "webpack serve",
+    "build": "node bin/build.js",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.2",
+    "@vitest/coverage-c8": "^0.24.5",
+    "babel-plugin-remove-import-export": "^1.1.1",
+    "sass": "^1.56.0",
+    "sass-loader": "^13.1.0",
+    "standard": "^17.0.0",
+    "vitest": "^0.24.4",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "clean-css-cli": "^5.6.1",
+    "concat": "^1.0.3",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "uglify-js": "^3.17.4"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json",
+    "space-before-function-paren": [
+      "avoid"
+    ]
+  },
+  "dependencies": {}
+}

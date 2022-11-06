@@ -1,0 +1,214 @@
+$font-name: Monaco, monospace;
+$color: #3a728e;
+$board-color: #64c0ed;
+
+.connect4-board-container {
+  position: relative;
+  width: 690px;
+  height: 430px;
+  padding: 10px;
+}
+.connect4-board {
+  background-color: #59abd466;
+  position: absolute;
+  padding: 3px 0 0 3px;
+  border-radius: 40px;
+  margin: 5px;
+  overflow: hidden;
+}
+.connect4-upper-board {
+  background-color: $board-color;
+  background: linear-gradient(20deg, $board-color, #5bafd9, $board-color, $board-color, #a6d8fe);
+  position: absolute;
+  padding: 3px 0 0 3px;
+  border-radius: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  width: 686px;
+  height: 423px;
+  box-shadow: 0px 4px #58a8d1, -1px 1px #58a8d1, 1px 1px #58a8d1,
+    0px 4px 6px #4789aa;
+}
+.connect4-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.connect4-piece-container {
+  position: relative;
+  height: 64px;
+  width: 64px;
+  border: 1px solid gray;
+  border-radius: 32px;
+  margin: 0 3px 3px 0;
+  box-shadow: 
+    inset 0px 4px 2px #0002,
+    inset 0px -2px #fff4;
+}
+
+.connect4-piece {
+  position: inherit;
+  height: 64px;
+  width: 64px;
+  border-radius: 32px;
+  transition: margin-top 250ms ease-in;
+}
+
+.connect4-piece.connect4-empty {
+  background-color: transparent;
+}
+.connect4-piece.connect4-player1 {
+  background-image: linear-gradient(50deg, yellow, #cc0);
+  background-position: 40% 50%;
+  box-shadow: 
+    inset 0px -3px #0003,
+    inset 0px 4px #fff6,
+    inset 0px 1px #0006;
+
+}
+.connect4-piece.connect4-player2 {
+  background-image: linear-gradient(50deg, red, #b00);
+  box-shadow: 
+    inset 0px -3px #0003,
+    inset 0px 4px #fff6,
+    inset 0px 3px #0006;
+
+}
+.connect4-board .connect4-piece.connect4-player1:hover,
+.connect4-board .connect4-piece.connect4-player2:hover {
+  transform: rotate(180deg);
+  box-shadow: 
+    inset 0px 3px #0003,
+    inset 0px -4px #fff6,
+    inset 0px -3px #0006;
+}
+
+.connect4-board.play .connect4-piece.connect4-empty:hover {
+  background-color: #fff4;
+}
+
+.connect4-piece.connect4-empty.connect4-piece-next {
+  opacity: .2;
+}
+
+.connect4-piece.connect4-piece.connect4-piece-line.connect4-player1 {
+  background-image: linear-gradient(50deg, yellow, #cdcd00, yellow, #cdcd00, #cdcd00) !important;
+}
+.connect4-piece.connect4-piece.connect4-piece-line.connect4-player2 {
+  background-image: linear-gradient(50deg, red, #b00, red, #b00, #b00) !important;
+}
+
+.connect4-piece.connect4-piece-line {
+  pointer-events: none;
+  animation: animatePiece 2s ease infinite;
+  background-size: 300%;
+}
+
+@keyframes animatePiece { 
+  0%{background-position:40% 50%}
+  50%{background-position:80% 50%}
+  100%{background-position:40% 50%}
+}
+
+.connect4-display {
+  background-color: #fff2;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  border-radius: 30px;
+  height: 180px;
+  width: 160px;
+  box-shadow: inset -2px 2px #0002, inset 2px -1px #fff3;
+}
+
+.connect4-display-message {
+  font-family: $font-name;
+  margin: 30px 10px;
+  text-align: center;
+  color: $color;
+  text-transform: uppercase; 
+}
+.connect4-piece.connect4-display-piece {
+  margin: auto;
+  position: relative;
+}
+
+.connect4-piece.connect4-display-piece.connect4-draw {
+  box-shadow: inset 0px 2px #0002, inset 0px -3px #fff4;
+}
+
+.connect4-reset {
+  position: absolute;
+  top: 230px;
+  right: 30px;
+  width: 160px;
+  text-align: center;
+}
+
+.connect4-reset-button {
+  background-color: #ffcd4d;
+  color: $color;
+  font-family: $font-name;
+  text-transform: uppercase;
+  position: relative;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 1px 2px 0 0;
+  width: 109px;
+  height: 39px;
+  padding: 9px 9px 10px 11px;
+  box-shadow: 
+    inset 1px -2px #234d6255, 
+    inset -0px 0px #fff5,
+    0px 0px 4px #0001;
+}
+
+.connect4-reset-button:hover {
+  margin: 0;
+  width: 110px;
+  height: 40px;
+  padding: 8px 9px 11px 11px;
+  box-shadow:
+    inset 2px -3px #234d6255, 
+    inset -1px 1px #fff5, 
+    1px -1px 4px #0001;
+}
+
+.connect4-reset-button:active {
+  margin: 1px 2px 0 0;
+  width: 108px;
+  height: 39px;
+  padding: 10px 10px 9px 10px;
+  box-shadow:
+    inset -2px 3px #234d6255, 
+    inset 1px -1px #fff5, 
+    inset 1px -1px 4px #0001;
+}
+
+.connect4-mouse-helper {
+  position: absolute;
+  background-color: #0001;
+  cursor: pointer;
+  bottom: 40px;
+  right: 40px;
+  width: 40px;
+  height: 10px;
+  border-radius: 5px;
+  box-shadow: inset -2px 2px #0002, inset 2px -1px #fff3; 
+}
+
+.connect4-mouse-helper-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-image: linear-gradient(50deg, #bbb, #aaa, #bbb, #aaa, #aaa);
+  margin: -6px 0 0 0;
+  box-shadow: inset 1px -1px #0002, inset -1px 1px #fff5; 
+  transition: all 100ms ease-out;
+}
+.connect4-mouse-helper-circle.connect4-mouse-helper-circle-active {
+  background-image: linear-gradient(50deg, #ddb54f, #ffcd4d, #caa341);
+  margin: -6px 0 0 20px;
+}

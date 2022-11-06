@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connect 4 - Static mode</title>
+  <!-- if dist does not exist execute command: npm run build -->
+  <link rel="stylesheet" href="../dist/connect4.min.css" />
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <h1>Connect 4</h1>
+  <div id="connect"></div>
+  <!-- if dist does not exist execute command: npm run build -->
+  <script src="../dist/connect4.min.js" type="application/javascript"></script>
+  <script>
+    Connect4(document.querySelector('#connect'));
+  </script>
+</body>
