@@ -67,6 +67,7 @@ const Connect4View = function($connect) {
   $connect.append($boardContainer);
 
   startGame();
+  keyEvents();
 
   function startGame() {
     connect4.reset();
@@ -186,13 +187,31 @@ const Connect4View = function($connect) {
     }
   }
 
+  function keyEvents() {
+    document.onkeyup = (e) => {
+      if (e.key === 'r') {
+        startGame();
+        return;
+      }
+      if (e.key === 'h') {
+        toggleMouse();
+        return;
+      }
+      const intKey = parseInt(e.key);
+      if (intKey && intKey > 0 && intKey <= cols) {
+        const col = intKey - 1;
+        addPiece(col);
+      }
+    }
+  }
+
   function addPiece(idx) {
     try {
       connect4.addPiece(idx);
       printGame(true);
     } catch (error) {
-      if (connect4.status == c4.PLAY) {
-        $message.innerHTML = error.message + ' - ' + idx;
+      if (connect4.status === c4.PLAY) {
+        $message.innerHTML = error.message;
       }
     }
   }
