@@ -20,7 +20,7 @@ function clean() {
 
 function prepareJs() {
   execute(`babel src -d ${dir}/js`);
-  execute(`concat -o ${dir}/js/concat.js ${dir}/js/Connect4.js ${dir}/js/Connect4View.js`);
+  execute(`concat -o ${dir}/js/concat.js ${dir}/js/constants.js ${dir}/js/Board.js ${dir}/js/BoardValidator.js ${dir}/js/LineCounter.js ${dir}/js/Connect4.js ${dir}/js/Connect4View.js`);
   execute(`concat -o ${dir}/js/concat.js ${dir}/${jsInputFiles.join(' ')}`);
   encapsulate(`${dir}/js/concat.js`, `${dir}/js/concat.js`);
   execute(`uglifyjs -o ${dir}/js/${jsFile} ${dir}/js/concat.js`);

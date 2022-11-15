@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { BoardValidator, c4 } from "../src/Connect4";
+import { BoardValidator } from "../src/BoardValidator";
+import { c4 } from "../src/constants";
 
 const o = c4.P1
 const x = c4.P2

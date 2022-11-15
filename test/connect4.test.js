@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import Connect4, { c4 } from "../src/Connect4";
+import Connect4 from "../src/Connect4";
+import { c4 } from "../src/constants";
 
 describe('connect4 board test', () => {
 

@@ -1,4 +1,5 @@
-import Connect4, { c4 } from './Connect4.js';
+import Connect4 from './Connect4.js';
+import { c4 } from './constants.js';
 
 const Connect4View = function($connect) {
   const rows = 6;
@@ -197,6 +198,10 @@ const Connect4View = function($connect) {
         toggleMouse();
         return;
       }
+      if (e.key === 'z') {
+        undo();
+        return;
+      }
       const intKey = parseInt(e.key);
       if (intKey && intKey > 0 && intKey <= cols) {
         const col = intKey - 1;
@@ -214,6 +219,22 @@ const Connect4View = function($connect) {
         $message.innerHTML = error.message;
       }
     }
+  }
+
+  function undo() {
+    if (gameIsOver()) {
+      return;
+    }
+    try {
+      connect4.undo();
+      printGame();
+    } catch (error) {
+      $message.innerHTML = error.message;
+    }
+  }
+
+  function gameIsOver() {
+    return connect4.status === c4.END_GAME;
   }
 
   function setLine($piece, row, col) {

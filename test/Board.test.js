@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { Board, c4 } from "../src/Connect4";
+import { Board } from "../src/Board";
+import { c4 } from "../src/constants";
 
 describe('Board tests', () => {
   it('throws an error if two params are not numbers', () => {
@@ -102,24 +103,42 @@ describe('Board tests', () => {
 
   it('has empty array called lastPiecePosition', () => {
     const board = new Board(4, 4)
-    expect(board.lastPiecePosition).toStrictEqual([])
+    expect(board.getLastPiecePosition()).toStrictEqual([])
   })
 
   it('has filled array called lastPiecePosition after add a piece', () => {
     const board = new Board(4, 4)
     board.addPiece(c4.P1, 1);
-    expect(board.lastPiecePosition).toStrictEqual([0, 1])
+    expect(board.getLastPiecePosition()).toStrictEqual([0, 1])
   })
 
   it('has empty array called lastPiecePosition after reset', () => {
     const board = new Board(4, 4)
     board.addPiece(c4.P1, 1);
     board.reset();
-    expect(board.lastPiecePosition).toStrictEqual([])
+    expect(board.getLastPiecePosition()).toStrictEqual([])
   })
 
   it('returns drop piece position', () => {
     const board = new Board(4, 4)
     board.getNextPiecePosition(1)
   })
+
+  it('throws an error if removePiece has invalid params', () => {
+    const board = new Board(4, 4)
+    expect(() => board.removePiece()).toThrow()
+  });
+
+  it('removes the last piece', () => {
+    const board = new Board(4, 4)
+    board.addPiece(c4.P1, 1);
+    board.addPiece(c4.P2, 1);
+    board.removeLastPiece();
+    expect(board.getLastPiecePosition()).toStrictEqual([0, 1])
+  });
+
+  it('removes the last piece in empty board', () => {
+    const board = new Board(4, 4)
+    expect(() => board.removeLastPiece()).toThrow('No pieces');
+  });
 })
