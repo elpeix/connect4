@@ -191,7 +191,7 @@ $board-color: #64c0ed;
   position: absolute;
   background-color: #0001;
   cursor: pointer;
-  bottom: 40px;
+  bottom: 80px;
   right: 40px;
   width: 40px;
   height: 10px;
@@ -209,6 +209,33 @@ $board-color: #64c0ed;
   transition: all 100ms ease-out;
 }
 .connect4-mouse-helper-circle.connect4-mouse-helper-circle-active {
+  background-image: linear-gradient(50deg, #ddb54f, #ffcd4d, #caa341);
+  margin: -6px 0 0 20px;
+}
+
+
+.connect4-computer-mode-helper {
+  position: absolute;
+  background-color: #0001;
+  cursor: pointer;
+  bottom: 40px;
+  right: 40px;
+  width: 40px;
+  height: 10px;
+  border-radius: 5px;
+  box-shadow: inset -2px 2px #0002, inset 2px -1px #fff3; 
+}
+
+.connect4-computer-mode-helper-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-image: linear-gradient(50deg, #bbb, #aaa, #bbb, #aaa, #aaa);
+  margin: -6px 0 0 0;
+  box-shadow: inset 1px -1px #0002, inset -1px 1px #fff5; 
+  transition: all 100ms ease-out;
+}
+.connect4-computer-mode-helper-circle.connect4-computer-mode-helper-circle-active {
   background-image: linear-gradient(50deg, #ddb54f, #ffcd4d, #caa341);
   margin: -6px 0 0 20px;
 }

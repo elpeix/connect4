@@ -4,6 +4,7 @@ export const c4 = {
   P2: "X",
   LINE: 4,
 
+  PLAY_AGAINST_COMPUTER: true,
   PLAY: "PLAY",
   END_GAME: "END_GAME",
   DRAW: "DRAW"

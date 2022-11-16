@@ -1,5 +1,6 @@
 import { Board } from "./Board";
 import { BoardValidator } from "./BoardValidator";
+import { ComputerPlayer } from "./ComputerPlayer";
 import { c4 } from "./constants";
 
 class Connect4 {
@@ -10,32 +11,65 @@ class Connect4 {
 
   #board;
   #validator;
+  #againstComputer;
+  #computerPlayer;
 
-  constructor(rows, cols) {
+  constructor(rows, cols, againstComputer) {
     this.#board = new Board(rows, cols);
+    this.#againstComputer = againstComputer;
+    this.#computerPlayer = c4.P2;
     this.reset();
   }
 
-  addPiece(col) {
-    if (this.status !== c4.PLAY) {
-      throw new Error('Game is ended');
+  playAgainstComputer(againstComputer) {
+    this.#againstComputer = againstComputer;
+  }
+
+  addPiece(col, iamComputer) {
+    this.#canIStillPlaying();
+    if (this.#isComputerTurn(iamComputer)) {
+      throw new Error('It is not your turn');
     }
     this.#board.addPiece(this.player, col);
     this.#validate();
     this.player = this.player === c4.P1 ? c4.P2 : c4.P1;
   }
 
-  getNextPiecePosition(col) {
-    if (this.status === c4.PLAY) {
+  #isComputerTurn(iamComputer) {
+    return this.#againstComputer === c4.PLAY_AGAINST_COMPUTER
+      && this.player === this.#computerPlayer
+      && !iamComputer;
+  }
+
+  #canIStillPlaying() {
+    if (this.status !== c4.PLAY) {
+      throw new Error('Game is ended');
+    }
+  }
+
+  getNextPiecePosition(col, iamComputer) {
+    if (this.status === c4.PLAY && !this.#isComputerTurn(iamComputer)) {
       return [
         this.player,
         this.#board.getNextPiecePosition(col)
       ]
     }
+    return [null, null];
   }
 
   getLastPiecePosition() {
     return this.#board.getLastPiecePosition();
+  }
+
+  getComputerMove() {
+    this.#canIStillPlaying();
+    if (this.#againstComputer !== c4.PLAY_AGAINST_COMPUTER) {
+      throw new Error('Not playing against computer');
+    }
+    if (this.player === this.#computerPlayer) {
+      const computer = new ComputerPlayer(this.#board, this.player);
+      return computer.getMove();
+    }
   }
 
   undo() {

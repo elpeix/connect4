@@ -128,4 +128,38 @@ describe('connect4 board test', () => {
     expect(() => connect4.addPiece(2)).toThrow('Game is ended')
   })
 
+  it('throws an error if it try to get computer move when status is not PLAY', () => {
+    const connect4 = new Connect4(5, 4)
+    connect4.addPiece(1) // P1
+    connect4.addPiece(2)
+    connect4.addPiece(1) // P1
+    connect4.addPiece(2)
+    connect4.addPiece(1) // P1
+    connect4.addPiece(2)
+    connect4.addPiece(1) // P1
+    expect(() => connect4.getComputerMove()).toThrow('Game is ended')
+  })
+
+  it('throws and error if addPiece when it plays against computer, player is P2 and iamComputer is false', () => {
+    const connect4 = new Connect4(5, 4, c4.PLAY_AGAINST_COMPUTER)
+    connect4.addPiece(1) // P1
+    expect(() => connect4.addPiece(2)).toThrow('It is not your turn')
+  })
+
+  it('throws an error if it try to get computer move when game is not against computer', () => {
+    const connect4 = new Connect4(5, 4)
+    connect4.addPiece(1) // P1
+    expect(() => connect4.getComputerMove()).toThrow('Not playing against computer');
+  })
+
+  it('returns computer move when status is PLAY', () => {
+    const connect4 = new Connect4(5, 4, c4.PLAY_AGAINST_COMPUTER)
+    connect4.addPiece(1) // P1
+    connect4.addPiece(2, true)
+    connect4.addPiece(1) // P1
+    connect4.addPiece(2, true)
+    connect4.addPiece(1) // P1
+    expect(connect4.getComputerMove()).toBe(1)
+  });
+
 })

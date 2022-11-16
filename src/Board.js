@@ -87,6 +87,10 @@ class Board {
     return true;
   }
 
+  isFull() {
+    return this.pieces.length === this.rows * this.cols;
+  }
+
   reset() {
     for (let row = 0; row < this.rows; row++) {
       this.board[row] = [];

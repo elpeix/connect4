@@ -27,11 +27,14 @@ const Connect4View = function($connect) {
     resetButton: `${prefix}-reset-button`,
     mouseHelper: `${prefix}-mouse-helper`,
     mouseHelperCircle: `${prefix}-mouse-helper-circle`,
+    computerMode: `${prefix}-computer-mode-helper`,
+    computerModeCircle: `${prefix}-computer-mode-helper-circle`,
   }
   let mouseHelp = false;
+  let computerMode = false;
   let viewerBoard;
 
-  const connect4 = new Connect4(rows, cols);
+  let connect4 = new Connect4(rows, cols, computerMode);
 
   const $boardContainer = domCreate('div', cn.container);
 
@@ -64,6 +67,12 @@ const Connect4View = function($connect) {
   const $mouseHelperCircle = domCreate('div', cn.mouseHelperCircle);
   $mouseHelper.append($mouseHelperCircle);
   $boardContainer.append($mouseHelper);
+
+  const $computerMode = domCreate('div', cn.computerMode);
+  $computerMode.addEventListener('click', toggleComputerMode);
+  const $computerModeCircle = domCreate('div', cn.computerModeCircle);
+  $computerMode.append($computerModeCircle);
+  $boardContainer.append($computerMode);
 
   $connect.append($boardContainer);
 
@@ -107,6 +116,9 @@ const Connect4View = function($connect) {
       if (connect4.player == c4.P1) {
         pieceClassName = cn.player1;
       } else if (connect4.player == c4.P2) {
+        if (computerMode) {
+          message = 'Computer is thinking...';
+        }
         pieceClassName = cn.player2;
       }
       $resetButton.innerHTML = 'RESET';
@@ -123,6 +135,16 @@ const Connect4View = function($connect) {
     } else {
       $mouseHelperCircle.classList.remove('connect4-mouse-helper-circle-active');
     }
+
+    if (computerMode) {
+      $computerModeCircle.classList.add('connect4-computer-mode-helper-circle-active');
+    } else {
+      $computerModeCircle.classList.remove('connect4-computer-mode-helper-circle-active');
+    }
+  }
+
+  function isComputerTurn() {
+    return connect4.player == c4.P2 && computerMode;
   }
 
   function setBoard(animateLastPiece) {
@@ -173,6 +195,9 @@ const Connect4View = function($connect) {
       if (mouseHelp) {
         $piece.addEventListener('mouseover', () => {
           const [player, p] = connect4.getNextPiecePosition(col);
+          if (player === null || p === null) {
+            return;
+          }
           const className = player == c4.P1 ? cn.player1 : cn.player2;
           viewerBoard[p[0]][col].classList.add(cn.pieceNext);
           viewerBoard[p[0]][col].classList.add(className);
@@ -180,6 +205,9 @@ const Connect4View = function($connect) {
 
         $piece.addEventListener('mouseleave', () => {
           const [, p] = connect4.getNextPiecePosition(col);
+          if (p === null) {
+            return;
+          }
           viewerBoard[p[0]][col].classList.remove(cn.pieceNext);
           viewerBoard[p[0]][col].classList.remove(cn.player1);
           viewerBoard[p[0]][col].classList.remove(cn.player2);
@@ -202,6 +230,13 @@ const Connect4View = function($connect) {
         undo();
         return;
       }
+      if (e.key === 'c') {
+        const computerMove = connect4.getComputerMove();
+        if (computerMove) {
+          addPiece(computerMove, true);
+        }
+        return; 
+      }
       const intKey = parseInt(e.key);
       if (intKey && intKey > 0 && intKey <= cols) {
         const col = intKey - 1;
@@ -210,13 +245,29 @@ const Connect4View = function($connect) {
     }
   }
 
-  function addPiece(idx) {
+  function addPiece(idx, iamComputer) {
     try {
-      connect4.addPiece(idx);
+      connect4.addPiece(idx, iamComputer);
       printGame(true);
+      if (isComputerTurn()) {
+        setTimeout(() => addComputerPiece(), 500);
+      }
     } catch (error) {
       if (connect4.status === c4.PLAY) {
         $message.innerHTML = error.message;
+      }
+    }
+  }
+
+  function addComputerPiece() {
+    if (gameIsOver()) {
+      return;
+    }
+    for (let i = 0; i < 5; i++) { // Try 5 times to find a valid move. Temporary solution
+      const computerMove = connect4.getComputerMove();
+      if (computerMove) {
+        addPiece(computerMove, true);
+        return;
       }
     }
   }
@@ -243,6 +294,12 @@ const Connect4View = function($connect) {
         $piece.classList.add(`${cn.pieceLine}`)
       }
     }
+  }
+
+  function toggleComputerMode() {
+    computerMode = !computerMode;
+    connect4.playAgainstComputer(computerMode);
+    startGame();
   }
 
   function toggleMouse() {
