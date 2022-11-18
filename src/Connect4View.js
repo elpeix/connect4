@@ -25,10 +25,15 @@ const Connect4View = function($connect) {
     draw: `${prefix}-draw`,
     reset: `${prefix}-reset`,
     resetButton: `${prefix}-reset-button`,
+    boardConfig: `${prefix}-board-config`,
+    mouseHelperContainer: `${prefix}-mouse-helper-container`,
     mouseHelper: `${prefix}-mouse-helper`,
     mouseHelperCircle: `${prefix}-mouse-helper-circle`,
-    computerMode: `${prefix}-computer-mode-helper`,
-    computerModeCircle: `${prefix}-computer-mode-helper-circle`,
+    mouseHelperMessage: `${prefix}-mouse-helper-message`,
+    computerModeContainer: `${prefix}-computer-mode-container`,
+    computerMode: `${prefix}-computer-mode`,
+    computerModeCircle: `${prefix}-computer-mode-circle`,
+    computerModeMessage: `${prefix}-computer-mode-message`
   }
   let mouseHelp = false;
   let computerMode = false;
@@ -62,17 +67,28 @@ const Connect4View = function($connect) {
   $resetButton.addEventListener('click', startGame);
   $reset.append($resetButton);
 
+  const $boardConfig = domCreate('div', cn.boardConfig);
+  $boardContainer.append($boardConfig);
+
+  const $mouseHelperContainer = domCreate('div', cn.mouseHelperContainer);
+  $mouseHelperContainer.addEventListener('click', toggleMouse);
   const $mouseHelper = domCreate('div', cn.mouseHelper);
-  $mouseHelper.addEventListener('click', toggleMouse);
   const $mouseHelperCircle = domCreate('div', cn.mouseHelperCircle);
   $mouseHelper.append($mouseHelperCircle);
-  $boardContainer.append($mouseHelper);
+  $mouseHelperContainer.append($mouseHelper);
+  const $mouseHelperMessage = domCreate('div', cn.mouseHelperMessage);
+  $mouseHelperContainer.append($mouseHelperMessage);
+  $boardConfig.append($mouseHelperContainer);
 
+  const $computerModeContainer = domCreate('div', cn.computerModeContainer);
+  $computerModeContainer.addEventListener('click', toggleComputerMode);
   const $computerMode = domCreate('div', cn.computerMode);
-  $computerMode.addEventListener('click', toggleComputerMode);
   const $computerModeCircle = domCreate('div', cn.computerModeCircle);
   $computerMode.append($computerModeCircle);
-  $boardContainer.append($computerMode);
+  $computerModeContainer.append($computerMode);
+  const $computerModeMessage = domCreate('div', cn.computerModeMessage);
+  $computerModeContainer.append($computerModeMessage);
+  $boardConfig.append($computerModeContainer);
 
   $connect.append($boardContainer);
 
@@ -132,14 +148,19 @@ const Connect4View = function($connect) {
 
     if (mouseHelp) {
       $mouseHelperCircle.classList.add('connect4-mouse-helper-circle-active');
+      $mouseHelperMessage.innerHTML = 'Hint on';
+      
     } else {
       $mouseHelperCircle.classList.remove('connect4-mouse-helper-circle-active');
+      $mouseHelperMessage.innerHTML = 'Hint off';
     }
 
     if (computerMode) {
-      $computerModeCircle.classList.add('connect4-computer-mode-helper-circle-active');
+      $computerModeCircle.classList.add('connect4-computer-mode-circle-active');
+      $computerModeMessage.innerHTML = 'Player vs Computer';
     } else {
-      $computerModeCircle.classList.remove('connect4-computer-mode-helper-circle-active');
+      $computerModeCircle.classList.remove('connect4-computer-mode-circle-active');
+      $computerModeMessage.innerHTML = 'Player vs Player';
     }
   }
 

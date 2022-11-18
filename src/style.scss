@@ -140,7 +140,7 @@ $board-color: #64c0ed;
 
 .connect4-reset {
   position: absolute;
-  top: 230px;
+  bottom: 50px;
   right: 30px;
   width: 160px;
   text-align: center;
@@ -187,18 +187,32 @@ $board-color: #64c0ed;
     inset 1px -1px 4px #0001;
 }
 
+.connect4-board-config {
+  position: absolute;
+  top: 240px;
+  right: 30px;
+  width: 158px;
+  height: 70px;
+  font-family: $font-name;
+  color: $color;
+  font-size: .6em;
+  text-transform: uppercase;
+}
+
+.connect4-mouse-helper-container {
+  position: absolute;
+  cursor: pointer;
+}
 .connect4-mouse-helper {
   position: absolute;
+  top: 10px;
+  left: 0px;
   background-color: #0001;
-  cursor: pointer;
-  bottom: 80px;
-  right: 40px;
   width: 40px;
   height: 10px;
   border-radius: 5px;
   box-shadow: inset -2px 2px #0002, inset 2px -1px #fff3; 
 }
-
 .connect4-mouse-helper-circle {
   width: 20px;
   height: 20px;
@@ -212,21 +226,26 @@ $board-color: #64c0ed;
   background-image: linear-gradient(50deg, #ddb54f, #ffcd4d, #caa341);
   margin: -6px 0 0 20px;
 }
+.connect4-mouse-helper-message {
+  margin: 7px 0 0 50px;
+}
 
-
-.connect4-computer-mode-helper {
+.connect4-computer-mode-container {
+  position: absolute;
+  cursor: pointer;
+  top: 40px;
+}
+.connect4-computer-mode {
   position: absolute;
   background-color: #0001;
-  cursor: pointer;
-  bottom: 40px;
-  right: 40px;
+  top: 10px;
+  left: 0px;
   width: 40px;
   height: 10px;
   border-radius: 5px;
   box-shadow: inset -2px 2px #0002, inset 2px -1px #fff3; 
 }
-
-.connect4-computer-mode-helper-circle {
+.connect4-computer-mode-circle {
   width: 20px;
   height: 20px;
   border-radius: 10px;
@@ -235,7 +254,11 @@ $board-color: #64c0ed;
   box-shadow: inset 1px -1px #0002, inset -1px 1px #fff5; 
   transition: all 100ms ease-out;
 }
-.connect4-computer-mode-helper-circle.connect4-computer-mode-helper-circle-active {
+.connect4-computer-mode-circle.connect4-computer-mode-circle-active {
   background-image: linear-gradient(50deg, #ddb54f, #ffcd4d, #caa341);
   margin: -6px 0 0 20px;
+}
+
+.connect4-computer-mode-message {
+  margin: 7px 0 0 50px;
 }
