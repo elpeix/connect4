@@ -24,7 +24,7 @@ class ComputerPlayer {
         if (move) {
             return move;
         }
-        return this.#getRandomMove();
+        return this.#getAnyGoodMove();
     }
 
     #getWinningMove() {
@@ -57,6 +57,28 @@ class ComputerPlayer {
             col = Math.floor(Math.random() * this.cols);
         }
         return col;
+    }
+
+    #getAnyGoodMove() {
+        const usedMoves = [];
+        const maxCountMoves = 10;
+        for (let i = 0; i < this.cols; i++) {
+            let count = 0;
+            let move = this.#getRandomMove();
+            while (usedMoves.includes(move) && count < maxCountMoves) {
+                usedMoves.push(move);
+                count++;
+                move = this.#getRandomMove();
+            }
+            usedMoves.push(move);
+            this.board.addPiece(this.player, move);
+            const oponentMove = this.#getBlockingMove();
+            this.board.removePiece(move);
+            if (oponentMove === undefined) {
+                return move;
+            }
+        }
+        return this.#getRandomMove();
     }
 }
 

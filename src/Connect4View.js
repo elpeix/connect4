@@ -288,13 +288,8 @@ const Connect4View = function($connect) {
     if (gameIsOver()) {
       return;
     }
-    for (let i = 0; i < 5; i++) { // Try 5 times to find a valid move. Temporary solution
-      const computerMove = connect4.getComputerMove();
-      if (computerMove) {
-        addPiece(computerMove, true);
-        return;
-      }
-    }
+    const computerMove = connect4.getComputerMove();
+    addPiece(computerMove, true);
   }
 
   function undo() {
