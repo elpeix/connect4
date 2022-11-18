@@ -33,7 +33,8 @@ const Connect4View = function($connect) {
     computerModeContainer: `${prefix}-computer-mode-container`,
     computerMode: `${prefix}-computer-mode`,
     computerModeCircle: `${prefix}-computer-mode-circle`,
-    computerModeMessage: `${prefix}-computer-mode-message`
+    computerModeMessage: `${prefix}-computer-mode-message`,
+    active: `${prefix}-active`,
   }
   let mouseHelp = false;
   let computerMode = false;
@@ -146,20 +147,26 @@ const Connect4View = function($connect) {
     $displayPiece.classList.remove(cn.draw);
     $displayPiece.classList.add(pieceClassName);
 
-    if (mouseHelp) {
-      $mouseHelperCircle.classList.add('connect4-mouse-helper-circle-active');
-      $mouseHelperMessage.innerHTML = 'Hint on';
-      
-    } else {
-      $mouseHelperCircle.classList.remove('connect4-mouse-helper-circle-active');
-      $mouseHelperMessage.innerHTML = 'Hint off';
-    }
+    printMouseHelp();
+    printComputerMode();
+  }
 
+  function printMouseHelp() {
+    if (mouseHelp) {
+      $mouseHelperCircle.classList.add(cn.active);
+      $mouseHelperMessage.innerHTML = 'Mouse help: ON';
+    } else {
+      $mouseHelperCircle.classList.remove(cn.active);
+      $mouseHelperMessage.innerHTML = 'Mouse help: OFF';
+    }
+  }
+
+  function printComputerMode() {
     if (computerMode) {
-      $computerModeCircle.classList.add('connect4-computer-mode-circle-active');
+      $computerModeCircle.classList.add(cn.active);
       $computerModeMessage.innerHTML = 'Player vs Computer';
     } else {
-      $computerModeCircle.classList.remove('connect4-computer-mode-circle-active');
+      $computerModeCircle.classList.remove(cn.active);
       $computerModeMessage.innerHTML = 'Player vs Player';
     }
   }
@@ -239,24 +246,21 @@ const Connect4View = function($connect) {
 
   function keyEvents() {
     document.onkeyup = (e) => {
-      if (e.key === 'r') {
+      if (e.key === ' ') {
         startGame();
         return;
       }
-      if (e.key === 'h') {
+      if (e.key === 'm') {
         toggleMouse();
         return;
       }
-      if (e.key === 'z') {
+      if (e.key === 'u') {
         undo();
         return;
       }
       if (e.key === 'c') {
-        const computerMove = connect4.getComputerMove();
-        if (computerMove) {
-          addPiece(computerMove, true);
-        }
-        return; 
+        toggleComputerMode();
+        return;
       }
       const intKey = parseInt(e.key);
       if (intKey && intKey > 0 && intKey <= cols) {
@@ -294,7 +298,7 @@ const Connect4View = function($connect) {
   }
 
   function undo() {
-    if (gameIsOver()) {
+    if (gameIsOver() || computerMode) {
       return;
     }
     try {
@@ -320,11 +324,13 @@ const Connect4View = function($connect) {
   function toggleComputerMode() {
     computerMode = !computerMode;
     connect4.playAgainstComputer(computerMode);
+    printComputerMode();
     startGame();
   }
 
   function toggleMouse() {
     mouseHelp = !mouseHelp;
+    printMouseHelp();
     printGame();
   }
 
