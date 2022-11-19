@@ -17,11 +17,11 @@ class ComputerPlayer {
             throw new Error("Board is full");
         }
         let move = this.#getWinningMove();
-        if (move) {
+        if (move !== undefined) {
             return move;
         }
         move = this.#getBlockingMove();
-        if (move) {
+        if (move !== undefined) {
             return move;
         }
         return this.#getAnyGoodMove();

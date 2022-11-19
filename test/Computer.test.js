@@ -125,6 +125,18 @@ describe("Computer player tests", () => {
         expect(move).toBe(2);
     });
 
+    it("should block a winning move in the first column", () => {
+        const board = new Board(6, 7);
+        board.addPiece(c4.P1, 0);
+        board.addPiece(c4.P2, 1);
+        board.addPiece(c4.P1, 0);
+        board.addPiece(c4.P2, 2);
+        board.addPiece(c4.P1, 0);
+        const computer = new ComputerPlayer(board, c4.P2);
+        const move = computer.getMove();
+        expect(move).toBe(0);
+    });
+
     it("should throw an error if the board is full", () => {
         const board = new Board(6, 7);
         for (let row = 0; row < 6; row++) {
