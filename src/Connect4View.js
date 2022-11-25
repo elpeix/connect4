@@ -262,7 +262,7 @@ const Connect4View = function($connect) {
         toggleComputerMode();
         return;
       }
-      const intKey = parseInt(e.key);
+      const intKey = Number(e.key);
       if (intKey && intKey > 0 && intKey <= cols) {
         const col = intKey - 1;
         addPiece(col);
