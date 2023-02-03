@@ -1,6 +1,8 @@
-$font-name: Monaco, monospace;
-$color: #3a728e;
-$board-color: #64c0ed;
+:root {
+  --font-family: Monaco, monospace;
+  --color: #3a728e;
+  --board-color: #64c0ed;
+}
 
 .connect4-board-container {
   position: relative;
@@ -18,8 +20,8 @@ $board-color: #64c0ed;
   overflow: hidden;
 }
 .connect4-upper-board {
-  background-color: $board-color;
-  background: linear-gradient(20deg, $board-color, #5bafd9, $board-color, $board-color, #a6d8fe);
+  background-color: var(--board-color);
+  background: linear-gradient(20deg, var(--board-color), #5bafd9, var(--board-color), var(--board-color), #a6d8fe);
   position: absolute;
   padding: 3px 0 0 3px;
   border-radius: 40px;
@@ -124,10 +126,10 @@ $board-color: #64c0ed;
 }
 
 .connect4-display-message {
-  font-family: $font-name;
+  font-family: var(--font-family);
   margin: 30px 10px;
   text-align: center;
-  color: $color;
+  color: var(--color);
   text-transform: uppercase; 
 }
 .connect4-piece.connect4-display-piece {
@@ -149,8 +151,8 @@ $board-color: #64c0ed;
 
 .connect4-reset-button {
   background-color: #ffcd4d;
-  color: $color;
-  font-family: $font-name;
+  color: var(--color);
+  font-family: var(--font-family);
   text-transform: uppercase;
   position: relative;
   border: none;
@@ -194,8 +196,8 @@ $board-color: #64c0ed;
   right: 30px;
   width: 158px;
   height: 70px;
-  font-family: $font-name;
-  color: $color;
+  font-family: var(--font-family);
+  color: var(--color);
   font-size: .6em;
   text-transform: uppercase;
 }
