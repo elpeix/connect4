@@ -4,20 +4,14 @@ Connect 4 game.
 
 ## Commands
 
-### Start server
+### Start
 
-> npm start
-
-Starts webpack server in port 9000. 
+> npm run dev
 
 ### Build
 
 > npm run build
 
-Generates minified files for js & css.
-
 ### Testing
 
 > npm test
-
-Run all tests

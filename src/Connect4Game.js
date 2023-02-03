@@ -1,7 +1,7 @@
 import Connect4 from './Connect4.js';
 import { c4 } from './constants.js';
 
-const Connect4View = function($connect) {
+const Connect4Game = function($connect) {
   const rows = 6;
   const cols = 7;
   const prefix = 'connect4';
@@ -357,4 +357,4 @@ const Connect4View = function($connect) {
 
 }
 
-export default Connect4View;
+export default Connect4Game;
