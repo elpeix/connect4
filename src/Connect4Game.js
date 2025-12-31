@@ -154,19 +154,20 @@ const Connect4Game = function ($connect) {
 	}
 
 	function getWinnerMessage() {
+		if (connect4.winner === c4.DRAW) {
+			return "DRAW";
+		}
 		if (computerMode) {
-			if (connect4.player == connect4.getComputerPlayer()) {
-				return "You win!";
-			}
+			return getWinnerComputerMessage(connect4.winner);
+		}
+		return "WINNER!";
+	}
+
+	function getWinnerComputerMessage(playerWinner) {
+		if (playerWinner == connect4.getComputerPlayer()) {
 			return "Computer wins!";
 		}
-		if (connect4.winner == c4.P1) {
-			return "WINNER!";
-		}
-		if (connect4.winner == c4.P2) {
-			return "WINNER!";
-		}
-		return "DRAW";
+		return "You win!";
 	}
 
 	function printMouseHelp() {
